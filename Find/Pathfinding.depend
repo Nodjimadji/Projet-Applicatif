@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1560736647 source:c:\ffoutput\pathfinding\pathfinding\main.c
+	<stdio.h>
+	<stdlib.h>
+	<limits.h>
+
+1560803115 source:c:\users\daryl\desktop\pathfinding\main.c
+	<stdio.h>
+	<stdlib.h>
+	<limits.h>
+
+1593789944 source:c:\users\lenovo\desktop\mov\sketch_jul02b\pathfinding\main.c
+	<stdio.h>
+	<stdlib.h>
+	<limits.h>
+
