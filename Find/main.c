@@ -121,7 +121,7 @@ int main()
     m=ajouterPointVoisin("E","I",3,m);
     m=ajouterPointVoisin("E","F",8,m);
     m=ajouterPointVoisin("F","G",4,m);
-   // m=ajouterPointVoisin('F',"I",1,m);
+    //m=ajouterPointVoisin('F',"I",1,m);
     m=ajouterPointVoisin("I","J",8,m);
     m=ajouterPointVoisin("G","K",5,m);
     m=ajouterPointVoisin("G","L",11,m);
@@ -153,7 +153,7 @@ int main()
     afficheListePoint(plusCourteDistance);
     printf("\n\n----FIN----\n");
 
-   // printf("Hello world!\n");
+   /* printf("Hello world!\n"); */
     return 0;
 }
 
@@ -307,14 +307,14 @@ point* calculDistanceMinimale(char pPointDepart[2], map *pMap){
     pointParcouru->voisin = NULL;
     premierPointParcouru = pointParcouru;
 
-    //Initialisation de l'algotithme de Dijkstra
+    /*Initialisation de l'algotithme de Dijkstra*/
     ptr = pMap->premierPoint;
     while(ptr != NULL) {
         if(ptr->nomPoint == pointParcouru->nomPoint) {
             ptr = ptr->suiv;
             continue;
         }
-        //La distance entre la ville de départ et la ville selectionné
+        /*La distance entre la ville de départ et la ville selectionné*/
         distance = obtenirDistance(ptr, pointParcouru);
         if(pointNonParcouru == NULL) {
             pointNonParcouru = (point*)malloc(sizeof(point));
@@ -341,9 +341,9 @@ point* calculDistanceMinimale(char pPointDepart[2], map *pMap){
         }
         ptr = ptr->suiv;
     }
-    //Fin d'initialisation
+    /*Fin d'initialisation
 
-    //Etape 2 : Recherche des distances minimales entre ville
+    Etape 2 : Recherche des distances minimales entre ville*/
     ptr = premierPointNonParcouru;
     parc = (point*)malloc(sizeof(point));
     parc->distance = premierPointNonParcouru->distance;
@@ -353,7 +353,8 @@ point* calculDistanceMinimale(char pPointDepart[2], map *pMap){
     while(parc != NULL) {
         pointOptimale = NULL;
         pointOptimale = rechercherPointOptimal(premierPointNonParcouru);
-        temp = (point*)malloc(sizeof(point)); //Sauvegarder la ville optimale
+        temp = (point*)malloc(sizeof(point));
+        /*Sauvegarder la ville optimale*/
         temp->nomPoint = pointOptimale->nomPoint;
         temp->suiv = NULL;
         temp->distance = pointOptimale->distance;
@@ -362,10 +363,10 @@ point* calculDistanceMinimale(char pPointDepart[2], map *pMap){
         pointParcouru->suiv = temp;
         pointParcouru = temp;
 
-        //Suppression du point optimal
+        /*Suppression du point optimal*/
         premierPointNonParcouru = supprimerPoint(pointOptimale, premierPointNonParcouru);
 
-        //Mise a jour des distances
+        /*Mise a jour des distances*/
         majDistance(premierPointParcouru, premierPointNonParcouru, temp, pMap);
 
         parc = premierPointNonParcouru;
@@ -394,7 +395,8 @@ int obtenirDistance(point *pPointDepart, point *pPointArrive) {
         ptr = ptr->suiv;
     }
     if(ptr == NULL)
-        return INT_MAX; //Au cas ou les deux points ne sont pas voisins
+        return INT_MAX;
+        /*Au cas ou les deux points ne sont pas voisins*/
 
 }
 
@@ -422,21 +424,21 @@ point* supprimerPoint(point *pPointASupprimer, point* pOuSupprimer) {
         if(ptr->nomPoint == pPointASupprimer->nomPoint) {
             if(prec != NULL) {
                 if(ptr->suiv == NULL) {
-                    //Suppression en queue de liste
+                    /*Suppression en queue de liste*/
                     tmp = ptr;
                     prec->suiv = NULL;
                     free(ptr);
                     return pOuSupprimer;
                 }
                 else {
-                    //Suppression au milieu de la liste
+                    /*Suppression au milieu de la liste*/
                     prec->suiv = ptr->suiv;
                     free(ptr);
                     return pOuSupprimer;
                 }
             }
             else {
-                //Suppression en tete de liste
+                /*Suppression en tete de liste*/
                 tmp = ptr->suiv;
                 free(ptr);
                 return tmp;
@@ -460,16 +462,16 @@ void majDistance(point* pPointDepart, point* pPremierPointNonParcouru, point *pD
     while(ptr != NULL) {
         dernierPointParcouru = rechercherPoint(pDernierPointParcouru->nomPoint, pMap);
         dernierPointParcouru->distance = pDernierPointParcouru->distance;
-        //Distance entre le dernier point et le point actuel
+        /*Distance entre le dernier point et le point actuel*/
         disDernierPoint = obtenirDistance(dernierPointParcouru, ptr);
         if(disDernierPoint != INT_MAX) {
-            //Il y un chemin entre le dernier point parcouru et le point actuel
+            /*Il y un chemin entre le dernier point parcouru et le point actuel*/
             tmp = rechercherPoint(ptr->nomPoint, pMap);
             tmp->distance = ptr->distance;
-            //Distance entre le point actuel et le point de depart
+            /*Distance entre le point actuel et le point de depart*/
             disPointDepart = obtenirDistance(tmp, pPointDepart);
             if(disPointDepart != INT_MAX) {
-                //Il y a un chemin entre le point actuel et le point de depart
+                /*Il y a un chemin entre le point actuel et le point de depart*/
                 distance = dernierPointParcouru->distance + disDernierPoint;
                 if(distance <= ptr->distance || ptr->distance == INT_MAX) {
                     ptr->distance = distance;
@@ -479,7 +481,7 @@ void majDistance(point* pPointDepart, point* pPremierPointNonParcouru, point *pD
                 }
             }
             else {
-                //Distance entre le dernier point parcouru et le point actuel
+                /*Distance entre le dernier point parcouru et le point actuel*/
                 disDernierPoint = obtenirDistance(dernierPointParcouru, ptr);
                 if(disDernierPoint != INT_MAX) {
                     distance = dernierPointParcouru->distance + disDernierPoint;
@@ -528,14 +530,3 @@ point* obtenirCheminPlusCourt(char pPointDepart[2], char pPointArrive[2], point 
 
     return entetePlusCourtChemin;
 }
-
-
-
-
-
-
-
-
-
-
-
